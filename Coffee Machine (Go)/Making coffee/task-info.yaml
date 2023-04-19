@@ -1,0 +1,46 @@
+type: remote_edu
+files:
+- name: main.go
+  visible: true
+  text: "package main\n\nfunc main() {\n\t// write your code here\n}\n"
+  learner_created: false
+- name: tests.py
+  visible: false
+  text: |
+    from hstest.stage_test import *
+    from hstest.test_case import TestCase
+
+    CheckResult.correct = lambda: CheckResult(True, '')
+    CheckResult.wrong = lambda feedback: CheckResult(False, feedback)
+
+    OUTPUT = """
+    Starting to make a coffee
+    Grinding coffee beans
+    Boiling water
+    Mixing boiled water with crushed coffee beans
+    Pouring coffee into the cup
+    Pouring some milk into the cup
+    Coffee is ready!
+    """
+
+
+    class CoffeeMachineTest(StageTest):
+        def generate(self) -> List[TestCase]:
+            return TestCase.from_stepik([('', OUTPUT)])
+
+        def check(self, reply: str, clue: Any) -> CheckResult:
+            return CheckResult(
+                reply.strip() == clue.strip(),
+                'You should make coffee exactly like in the example')
+
+
+    if __name__ == '__main__':
+        CoffeeMachineTest().run_tests()
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/14002#comment
+check_profile: hyperskill_go
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: "Tue, 18 Apr 2023 20:26:22 UTC"
+record: 1
